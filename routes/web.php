@@ -21,5 +21,5 @@ Route::get('/', function () {
     $student = Student::first();
     dd($student->academicClass);
 });
-// Route::redirect('/', '/admin');
+Route::redirect('/', '/admin');
 Route::redirect('/login', '/admin/login')->name('login');
