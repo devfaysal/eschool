@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
-            $table->foreignId('parent_id')->nullable();
+            $table->foreignId('guardian_id')->nullable();
             
             $table->string('phone')->nullable();
             $table->string('email')->unique()->nullable();

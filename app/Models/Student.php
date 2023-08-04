@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Student extends Model
+class Student extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     public function guardian()
     {
@@ -29,6 +30,11 @@ class Student extends Model
 
     public function academicClass()
     {
-        return $this->belongsTo(AcademicClass::class);
+        return $this->belongsToMany(AcademicClass::class, 'enrollments')->wherePivot('session_id', 1);
+    }
+
+    public function enroll()
+    {
+        dd($this);
     }
 }

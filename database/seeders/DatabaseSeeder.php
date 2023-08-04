@@ -32,26 +32,12 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Four'],
             ['name' => 'Five'],
         ]);
-        Session::create(['name' => 2023, 'is_current' => true]);
+        $session = Session::create(['name' => 2023, 'is_current' => true]);
         foreach(range(1,100) as $student_id){
-            if($student_id < 21){
-                $academic_class_id = 1;
-            }
-            if($student_id < 41){
-                $academic_class_id = 2;
-            }
-            if($student_id < 61){
-                $academic_class_id = 3;
-            }
-            if($student_id < 81){
-                $academic_class_id = 4;
-            }
-            if($student_id > 80){
-                $academic_class_id = 5;
-            }
+            $academic_class_id = rand(1,5);
             Enrollment::create([
                 'student_id' => $student_id,
-                'session_id' => currentSession(),
+                'session_id' => $session->id,
                 'academic_class_id' => $academic_class_id,
             ]);
         }

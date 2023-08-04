@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\AcademicClass;
+use App\Models\Enrollment;
+use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // dd(Enrollment::where('student_id', 1)->where('session_id', 1)->first());
+    $student = Student::first();
+    dd($student->academicClass);
 });
+// Route::redirect('/', '/admin');
+Route::redirect('/login', '/admin/login')->name('login');

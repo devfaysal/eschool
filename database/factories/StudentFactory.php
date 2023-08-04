@@ -20,7 +20,7 @@ class StudentFactory extends Factory
     {
         return [
             'code' => Str::random('20'),
-            'parent_id' => Guardian::factory(),
+            'guardian_id' => Guardian::factory(),
             'phone' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'name' => fake()->name(),
