@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\GuardianLogin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -25,7 +26,7 @@ class GuardianPanelProvider extends PanelProvider
         return $panel
             ->id('guardian')
             ->path('guardian')
-            ->login()
+            ->login(GuardianLogin::class)
             ->authGuard('guardian')
             ->colors([
                 'primary' => Color::Green,

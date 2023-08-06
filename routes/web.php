@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // dd(Enrollment::where('student_id', 1)->where('session_id', 1)->first());
-    $student = Student::first();
-    dd($student->academicClass);
+    // $student = Student::first();
+    // dd($student->academicClass);
+    return view('welcome');
 });
-Route::redirect('/', '/admin');
 Route::redirect('/login', '/admin/login')->name('login');
