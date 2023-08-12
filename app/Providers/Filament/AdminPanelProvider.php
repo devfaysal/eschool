@@ -30,6 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->login(AdminLogin::class)
             ->authGuard('web')
             ->sidebarWidth('15rem')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->collapsibleNavigationGroups()
             ->colors([
                 'primary' => Color::Amber,
