@@ -2,5 +2,5 @@
 
 @config './tailwind.config.js';
 .fi-sidebar{
-    @apply border-r border-gray-200;
+    @apply border-r border-gray-200 dark:border-gray-900;
 }

@@ -6,7 +6,14 @@ use App\Filament\Resources\StudentResource\Pages;
 use App\Filament\Resources\StudentResource\RelationManagers;
 use App\Models\Student;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
@@ -15,6 +22,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -28,7 +36,36 @@ class StudentResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')->required(),
+                Select::make('guardian_id')
+                    ->relationship('guardian', 'name')
+                    ->createOptionForm(function(Form $form){
+                        return $form->schema([
+                        Grid::make(2)
+                            ->schema([
+                                TextInput::make('name')
+                                    ->required(),
+                                TextInput::make('phone'),
+                                TextInput::make('email'),
+                                Select::make('gender')->options(genderOptions()),
+                                DatePicker::make('dob'),
+                                TextInput::make('nid'),
+                                Select::make('blood_group')->options(bloodGroupOptions()),
+                                Select::make('religion')->options(religionOptions()),
+                                TextInput::make('profession'),
+                            ])
+                        ]);
+                    })
+                    ->required()
+                    ->searchable()
+                    ->preload(),
+                    TextInput::make('phone'),
+                    TextInput::make('email'),
+                    Select::make('gender')->options(genderOptions()),
+                    DatePicker::make('dob'),
+                    TextInput::make('birth_id'),
+                    Select::make('blood_group')->options(bloodGroupOptions()),
+                    Select::make('religion')->options(religionOptions()),
             ]);
     }
 
@@ -49,9 +86,16 @@ class StudentResource extends Resource
                     }),
                 TextColumn::make('academicClass.name')
                     ->label('Class')
-                    ->action(function(Student $record){
-                        dd($record);
-                    }),
+                    ->action(
+                        Action::make('Academic Class')
+                        ->modalContent(fn (Student $record): View => view(
+                            'filament.pages.actions.advance',
+                            ['record' => $record],
+                        ))
+                        ->modalSubmitAction(false)
+                        ->modalWidth('sm')
+                        // ->slideOver()
+                    ),
                 TextColumn::make('phone')
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('email')
@@ -77,16 +121,7 @@ class StudentResource extends Resource
                     ->preload(),
                 SelectFilter::make('blood_group')
                     ->multiple()
-                    ->options([
-                        'A+' => 'A+',
-                        'A-' => 'A-',
-                        'B+' => 'B+',
-                        'B-' => 'B-',
-                        'O+' => 'O+',
-                        'O-' => 'O-',
-                        'AB+' => 'AB+',
-                        'AB-' => 'AB-'
-                    ])
+                    ->options(bloodGroupOptions())
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -105,6 +140,17 @@ class StudentResource extends Resource
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),
             ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                TextEntry::make('name'),
+                TextEntry::make('email'),
+                TextEntry::make('notes')
+            ])
+            ->columns(3);
     }
     
     public static function getRelations(): array

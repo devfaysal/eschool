@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "devfaysal/static-options": "@dev",
         "filament/filament": "^3.0-stable",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
@@ -70,6 +71,12 @@
             "php-http/discovery": true
         }
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../pkg/static-options"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }

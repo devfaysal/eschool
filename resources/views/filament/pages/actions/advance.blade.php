@@ -1,0 +1,1 @@
+{{ $record->academicClass->first()->name }}
