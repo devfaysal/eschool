@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('class_teacher', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('academic_class_id');
-            $table->foreignId('teacher_id');
-            $table->foreignId('session_id');
-            $table->foreignId('section_id')->nullable();
+            $table->foreignId('author_id');
+            $table->string('title');
+            $table->json('content');
+            $table->string('status');
             $table->timestamps();
-
-            $table->unique(['academic_class_id', 'teacher_id', 'session_id']);
         });
     }
 
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('class_teacher');
+        Schema::dropIfExists('pages');
     }
 };

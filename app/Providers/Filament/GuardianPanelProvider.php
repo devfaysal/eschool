@@ -26,8 +26,8 @@ class GuardianPanelProvider extends PanelProvider
         return $panel
             ->id('guardian')
             ->path('guardian')
-            ->login(GuardianLogin::class)
-            ->authGuard('guardian')
+            // ->login(GuardianLogin::class)
+            // ->authGuard('guardian')
             ->colors([
                 'primary' => Color::Green,
             ])
@@ -53,7 +53,7 @@ class GuardianPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                Authenticate::class,
+                // Authenticate::class,
             ]);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Demo;
 use App\Models\AcademicClass;
 use App\Models\Enrollment;
 use App\Models\Student;
@@ -20,6 +21,10 @@ Route::get('/', function () {
     // dd(Enrollment::where('student_id', 1)->where('session_id', 1)->first());
     // $student = Student::first();
     // dd($student->academicClass);
+    // $page = App\Models\Page::first();
+    // dd($page->content);
     return view('welcome');
 });
+
+Route::get('/demo', Demo::class);
 Route::redirect('/login', '/admin/login')->name('login');
