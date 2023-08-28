@@ -73,10 +73,8 @@
     },
     "repositories": [
         {
-            "type": "path",
-            "url": "../pkg/static-options"
+            "type": "vcs",
+            "url": "https://github.com/devfaysal/static-options.git"
         }
-    ],
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    ]
 }
